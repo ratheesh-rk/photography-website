@@ -1,0 +1,105 @@
+{% extends 'core_app/base.html' %}
+{% load static %}
+
+{% block title %}About Us - SD Photography{% endblock %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="about-hero text-center" style="display: flex; align-items: center; justify-content: center; min-height: 320px;">
+    <div class="container">
+        <div class="about-hero-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+            <h1 class="about-title" style="text-align: center; font-family: 'Playfair Display', serif;">About SD Photography</h1>
+            <p class="about-subtitle" style="text-align: center; font-family: 'Inter', sans-serif;">Capturing love stories with artistic vision and timeless elegance</p>
+        </div>
+    </div>
+</section>
+
+<!-- About Story Section -->
+<section class="about-story text-center">
+    <div class="container">
+        <div class="about-story-content" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap;">
+            <div class="about-story-text" style="max-width: 500px; min-width: 220px; text-align: left;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic; font-weight: 600;">Our Story</h2>
+                <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-style: italic;">Founded with a passion for capturing life's most precious moments, SD Photography has been creating beautiful memories for couples across Kerala and beyond. <span style="font-style: normal;">Our journey began with a simple belief: every love story deserves to be told beautifully.</span></p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem;">With over <span style="font-style: italic;">8 years of experience</span> in wedding photography, we've had the privilege of documenting hundreds of love stories, each unique and special in its own way. From intimate ceremonies to grand celebrations, we approach every wedding with the same dedication and creativity.</p>
+            </div>
+            <div class="about-story-image" style="display: flex; align-items: center; justify-content: center;">
+                <div class="about-photo" style="width: 180px; height: 180px; border-radius: 50%; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: #aaa; overflow: hidden;">
+                    <img src="{% static 'images/logos/sd logo.png' %}" alt="SD Photography Story Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Founder Section -->
+<section class="about-founder">
+    <div class="container">
+        <div class="founder-content" style="display: flex; align-items: center; justify-content: center; gap: 3.5rem; flex-wrap: wrap;">
+            <div class="founder-image" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: flex-start;">
+                <div class="founder-photo" style="width: 350px; height: 350px; border-radius: 24px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 7rem; color: #aaa; object-fit: cover;">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div class="founder-info" style="max-width: 600px; min-width: 220px; margin: 0; text-align: left;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic; font-weight: 600;">Meet Our Founder</h2>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic;">Lead Photographer & Creative Director</h3>
+                <p class="founder-role" style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-style: italic;">Principal Photographer</p>
+                <p class="founder-bio" style="font-family: 'Inter', sans-serif; font-size: 1.1rem;">With a keen eye for detail and a passion for <span style="font-style: italic;">storytelling</span>, our founder brings years of experience and artistic vision to every shoot. Having captured countless love stories across different cultures and traditions, they understand that every wedding is unique and deserves to be documented with care and creativity.</p>
+                <p class="founder-bio" style="font-family: 'Inter', sans-serif; font-size: 1.1rem;">Their approach combines <span style="font-style: italic;">technical expertise</span> with emotional sensitivity, ensuring that every moment is captured authentically while maintaining the highest standards of artistic quality. From traditional ceremonies to modern celebrations, they adapt their style to reflect the couple's personality and vision.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="about-cta text-center" style="margin-top: 4rem;">
+    <div class="container">
+        <div class="cta-content" style="text-align: center;">
+            <h2 style="margin-bottom: 1.5rem; font-family: 'Playfair Display', serif;">Ready to Create Beautiful Memories?</h2>
+            <p style="margin-bottom: 2.2rem; font-family: 'Inter', sans-serif;">Let's discuss your vision and create a photography package that's perfect for your special day.</p>
+            <div class="cta-buttons" style="justify-content: center; display: flex; gap: 0.5rem; align-items: center;">
+                <a href="{% url 'home' %}#contact" class="btn btn-primary about-btn-fix">Get in Touch</a>
+                <a href="{% url 'portfolio' %}" class="btn btn-secondary about-btn-fix">View Our Portfolio</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .about-btn-fix {
+        min-width: 160px;
+        padding: 0.85rem 1.7rem;
+        font-size: 1.05rem;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none !important;
+        border-radius: 50px;
+        font-weight: 500;
+        box-sizing: border-box;
+        border: 2px solid #111;
+        transition: all 0.2s;
+        font-family: 'Inter', sans-serif;
+    }
+    .about-btn-fix.btn-primary {
+        background: #111;
+        color: #fff;
+    }
+    .about-btn-fix.btn-primary:hover {
+        background: #fff;
+        color: #111;
+        border-color: #111;
+    }
+    .about-btn-fix.btn-secondary {
+        background: #fff;
+        color: #111;
+    }
+    .about-btn-fix.btn-secondary:hover {
+        background: #111;
+        color: #fff;
+        border-color: #111;
+    }
+</style>
+{% endblock %} 

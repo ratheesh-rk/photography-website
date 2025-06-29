@@ -1,0 +1,621 @@
+/* Wedding Bells Inspired Design for SD Photography */
+
+/* ===== ELEGANT TYPOGRAPHY ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Wedding Bells Inspired Color Palette */
+    --deep-black: #000000;
+    --warm-cream: #F5F5F0;
+    --soft-gray: #8A8A8A;
+    --pure-white: #FFFFFF;
+    --elegant-brown: #6B5B5B;
+    --subtle-beige: #F8F6F3;
+    
+    /* Elegant Shadows */
+    --elegant-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --elegant-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+    --subtle-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    
+    /* Typography Scale */
+    --heading-xl: 4rem;
+    --heading-lg: 3rem;
+    --heading-md: 2.5rem;
+    --heading-sm: 2rem;
+    --body-lg: 1.25rem;
+    --body-md: 1.125rem;
+    --body-sm: 1rem;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--deep-black);
+    background: var(--pure-white);
+    overflow-x: hidden;
+}
+
+/* ===== ELEGANT TYPOGRAPHY ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--deep-black);
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--heading-lg);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--deep-black);
+    position: relative;
+}
+
+.section-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-lg);
+    font-weight: 400;
+    text-align: center;
+    color: var(--soft-gray);
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+}
+
+.what-we-do-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--heading-lg);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--deep-black);
+    position: relative;
+}
+
+/* ===== ELEGANT NAVIGATION ===== */
+.navbar {
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.35rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 28px;
+    width: auto;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--pure-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.2rem 0;
+    letter-spacing: 0.3px;
+    text-transform: none;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--pure-white);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* ===== SMOOTH SCROLLING EFFECTS ===== */
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* ===== SCROLL-BASED NAVBAR EFFECTS ===== */
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== ELEGANT HERO SECTION ===== */
+.hero {
+    height: 100vh;
+    position: relative;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: var(--pure-white);
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--heading-xl);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-lg);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== ELEGANT BUTTONS ===== */
+.cta-button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--deep-black);
+    background: var(--pure-white);
+    border: 2px solid var(--pure-white);
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.cta-button:hover {
+    background: transparent;
+    color: var(--pure-white);
+    transform: translateY(-2px);
+}
+
+/* ===== ELEGANT SECTIONS ===== */
+.what-we-do,
+.services,
+.portfolio,
+.about,
+.contact-section,
+.testimonials {
+    padding: 8rem 0;
+    background: var(--pure-white);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    padding: 0 2rem;
+}
+
+/* ===== ELEGANT CARDS ===== */
+.service-card {
+    background: var(--pure-white);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: var(--elegant-shadow);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--elegant-shadow-hover);
+}
+
+.service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--heading-sm);
+    margin-bottom: 1rem;
+    color: var(--deep-black);
+}
+
+.service-card p {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-md);
+    color: var(--soft-gray);
+    line-height: 1.7;
+}
+
+/* ===== ELEGANT PORTFOLIO ===== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--pure-white);
+    box-shadow: var(--elegant-shadow);
+    transition: all 0.4s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--elegant-shadow-hover);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== ELEGANT TESTIMONIALS ===== */
+.testimonial-card {
+    background: var(--pure-white);
+    padding: 3rem 2.5rem;
+    border-radius: 0;
+    box-shadow: var(--elegant-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--elegant-brown);
+    opacity: 0.3;
+    line-height: 1;
+}
+
+.testimonial-text {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-md);
+    color: var(--deep-black);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.client-name {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--body-lg);
+    font-weight: 600;
+    color: var(--deep-black);
+    margin-bottom: 0.5rem;
+}
+
+.client-role {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-sm);
+    color: var(--soft-gray);
+}
+
+/* ===== ELEGANT CONTACT FORM ===== */
+.contact-form-container {
+    background: var(--pure-white);
+    padding: 4rem;
+    box-shadow: var(--elegant-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-form h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--heading-md);
+    margin-bottom: 2rem;
+    color: var(--deep-black);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--body-sm);
+    color: var(--deep-black);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-sm);
+    transition: all 0.3s ease;
+    background: var(--warm-cream);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--deep-black);
+    background: var(--pure-white);
+}
+
+.contact-submit-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--body-sm);
+    color: var(--pure-white);
+    background: var(--deep-black);
+    border: 2px solid var(--deep-black);
+    padding: 1rem 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-submit-btn:hover {
+    background: transparent;
+    color: var(--deep-black);
+}
+
+/* ===== ELEGANT FOOTER ===== */
+.footer {
+    background: var(--deep-black);
+    color: var(--pure-white);
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--heading-sm);
+    margin-bottom: 1.5rem;
+    color: var(--pure-white);
+}
+
+.footer-description {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-md);
+    line-height: 1.7;
+    color: var(--soft-gray);
+    margin-bottom: 2rem;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--body-sm);
+    color: var(--soft-gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--pure-white);
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pure-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    background: var(--pure-white);
+    color: var(--deep-black);
+    transform: translateY(-2px);
+}
+
+/* ===== ELEGANT RESPONSIVE ===== */
+@media (max-width: 768px) {
+    :root {
+        --heading-xl: 3rem;
+        --heading-lg: 2.5rem;
+        --heading-md: 2rem;
+        --heading-sm: 1.75rem;
+    }
+    
+    .nav-list {
+        gap: 2rem;
+    }
+    
+    .hero-title {
+        font-size: var(--heading-lg);
+    }
+    
+    .contact-form-container {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+    
+    .service-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-list {
+        gap: 1.5rem;
+    }
+    
+    .hero-title {
+        font-size: var(--heading-md);
+    }
+    
+    .cta-button {
+        padding: 0.875rem 2rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* ===== ELEGANT ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* ===== ELEGANT UTILITIES ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+.mb-6 {
+    margin-bottom: 3rem;
+}
+
+.pt-8 {
+    padding-top: 4rem;
+}
+
+.pb-8 {
+    padding-bottom: 4rem;
+} 

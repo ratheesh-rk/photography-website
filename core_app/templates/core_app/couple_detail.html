@@ -1,0 +1,62 @@
+{% extends 'core_app/base.html' %}
+{% load static %}
+{% block content %}
+<section class="couple-detail">
+    <div class="couple-header" style="margin-bottom: 2.5rem; padding-left: 2vw; text-align: center;">
+        <h1 class="couple-heading" style="font-size: 2.5rem; font-family: 'Georgia', serif; font-weight: 700; margin-bottom: 0.7rem;">{{ couple.heading }}</h1>
+        <div class="couple-names" style="font-size: 1.3rem; color: #444; font-style: italic; margin-bottom: 0.3rem; text-align: center;">{{ couple.names }}</div>
+        <div class="couple-meta" style="font-size: 1.1rem; color: #888; margin-bottom: 1.2rem; text-align: center;">{{ couple.wedding_date|date:"F j, Y" }}{% if couple.location %} • {{ couple.location }}{% endif %}</div>
+        <div class="couple-description" style="font-size: 1.15rem; color: #333; max-width: 700px; margin: 0 auto; text-align: center;">{{ couple.description }}</div>
+    </div>
+    <div class="masonry-gallery">
+        {% for photo in photos %}
+        <div class="masonry-item">
+            <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:couple.names }}">
+            {% if photo.caption %}
+            <div class="gallery-caption">{{ photo.caption }}</div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No photos have been added for this couple yet.</p>
+        {% endfor %}
+    </div>
+</section>
+<style>
+.masonry-gallery {
+    column-count: 3;
+    column-gap: 1.5rem;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0 2vw 2vw 2vw;
+}
+@media (max-width: 1200px) {
+    .masonry-gallery { column-count: 2; }
+}
+@media (max-width: 700px) {
+    .masonry-gallery { column-count: 1; }
+}
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
+}
+.masonry-item img {
+    width: 100%;
+    display: block;
+    border-radius: 0;
+    margin-bottom: 0.3rem;
+}
+.gallery-caption {
+    font-size: 1rem;
+    color: #555;
+    padding: 0.3rem 0.5rem 0.2rem 0.5rem;
+    background: rgba(255,255,255,0.7);
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 0.2rem;
+}
+</style>
+{% endblock %} 

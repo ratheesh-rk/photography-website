@@ -1,0 +1,213 @@
+{% extends 'core_app/base.html' %}
+{% load static %}
+{% block content %}
+<section class="portfolio">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Love Stories Portfolio</h2>
+            <p class="section-subtitle">Dive into the unforgettable journeys of our couples—each story captured with artistry, emotion, and heart. Click on a story to relive their magical moments!</p>
+        </div>
+        <div class="couple-portfolio-list">
+            {% for couple in couples %}
+            <div class="couple-portfolio-item">
+                <a href="{% url 'couple_detail' slug=couple.slug %}" class="couple-portfolio-image">
+                    <img src="{{ couple.cover_photo.url }}" alt="{{ couple.names }}">
+                </a>
+                <div class="couple-portfolio-details">
+                    <h3>{{ couple.names }}</h3>
+                    <div class="couple-meta">{{ couple.wedding_date|date:"F Y" }}{% if couple.location %} • {{ couple.location }}{% endif %}</div>
+                    {% if couple.quote %}<div class="couple-quote">{{ couple.quote }}</div>{% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p class="no-couples-message">No couples have been added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+.couple-portfolio-list {
+    width: 100%;
+    margin-top: 2.5rem;
+}
+
+.couple-portfolio-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+    padding: 2.2rem 0;
+    border-bottom: 1px solid #ececec;
+    transition: all 0.3s ease;
+}
+
+.couple-portfolio-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 2.2rem 1.5rem;
+    margin: 0 -1.5rem 3.5rem -1.5rem;
+}
+
+.couple-portfolio-image {
+    display: block;
+    min-width: 260px;
+    max-width: 320px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    transition: all 0.3s ease;
+}
+
+.couple-portfolio-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.couple-portfolio-image img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.couple-portfolio-image:hover img {
+    transform: scale(1.05);
+}
+
+.couple-portfolio-details {
+    flex: 1;
+}
+
+.couple-portfolio-details h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.couple-meta {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.couple-quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #444;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.no-couples-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+    padding: 3rem 0;
+}
+
+/* Tablet Styles */
+@media (max-width: 900px) {
+    .couple-portfolio-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .couple-portfolio-image {
+        width: 100%;
+        max-width: 400px;
+        min-width: 0;
+        margin: 0 auto;
+    }
+    
+    .couple-portfolio-details h3 {
+        font-size: 1.8rem;
+    }
+    
+    .couple-meta,
+    .couple-quote {
+        font-size: 1rem;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .couple-portfolio-item {
+        margin-bottom: 2.5rem;
+        padding: 1.5rem 0;
+        gap: 1rem;
+    }
+    
+    .couple-portfolio-item:hover {
+        padding: 1.5rem 1rem;
+        margin: 0 -1rem 2.5rem -1rem;
+    }
+    
+    .couple-portfolio-image {
+        max-width: 100%;
+        min-width: 0;
+    }
+    
+    .couple-portfolio-image img {
+        height: 250px;
+    }
+    
+    .couple-portfolio-details h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .couple-meta {
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .couple-quote {
+        font-size: 0.95rem;
+    }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+    .couple-portfolio-item {
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+    }
+    
+    .couple-portfolio-item:hover {
+        padding: 1rem 0.5rem;
+        margin: 0 -0.5rem 2rem -0.5rem;
+    }
+    
+    .couple-portfolio-image img {
+        height: 200px;
+    }
+    
+    .couple-portfolio-details h3 {
+        font-size: 1.4rem;
+    }
+    
+    .couple-meta,
+    .couple-quote {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %} 

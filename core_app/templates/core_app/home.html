@@ -1,0 +1,690 @@
+<!-- core_app/templates/core_app/home.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Photography</title>
+    <link rel="icon" type="image/png" href="{% static 'images/logos/favicon.png' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/logos/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/logos/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wedding-bells-inspired.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+      .floating-action-button {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 1200;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .fab-main {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #111;
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.7rem;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        z-index: 2;
+      }
+      .fab-main:hover, .fab-main:focus {
+        background: #333;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+      }
+      .fab-options {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-bottom: 8px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px);
+        transition: opacity 0.25s, transform 0.25s;
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+      }
+      .floating-action-button.active .fab-options {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .fab-option {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 12px;
+        border-radius: 50%;
+        background: #fff;
+        color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.25s;
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      .floating-action-button.active .fab-option {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .fab-option:last-child { margin-bottom: 0; }
+      .fab-option:hover, .fab-option:focus {
+        background: #111;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      }
+      .fab-option .fa-whatsapp { color: #25d366; }
+      .fab-option:hover .fa-whatsapp { color: #fff; }
+      .fab-option .fa-instagram { color: #e1306c; }
+      .fab-option:hover .fa-instagram { color: #fff; }
+      .fab-option .fa-envelope { color: #0072c6; }
+      .fab-option:hover .fa-envelope { color: #fff; }
+      @media (max-width: 600px) {
+        .floating-action-button { bottom: 16px; right: 16px; }
+        .fab-main { width: 48px; height: 48px; font-size: 1.3rem; }
+        .fab-option { width: 38px; height: 38px; font-size: 1.1rem; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">
+                    <img src="{% static 'images/logos/logo 1.png' %}" alt="Elegant Moments Logo" class="logo-image">
+                    <span class="logo-text"></span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'about' %}" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'portfolio' %}" class="nav-link">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}#testimonials" class="nav-link">Testimonials</a>
+                    </li>
+                    {% comment %} <li class="nav-item">
+                        <a href="#instagram" class="nav-link">Instagram</a>
+                    </li> {% endcomment %}
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}#faq" class="nav-link">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Simple Mobile Menu Test -->
+    <script>
+        // Immediate test for mobile menu
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Home page loaded');
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            console.log('Elements found:', {
+                navToggle: !!navToggle,
+                navMenu: !!navMenu
+            });
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function(e) {
+                    console.log('Toggle clicked!');
+                    e.preventDefault();
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                    console.log('Menu active:', navMenu.classList.contains('active'));
+                });
+            }
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-slider">
+                <div class="slide active" style="background-image: url('{% static "images/banner/banner 1.JPG" %}')">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide" style="background-image: url('{% static "images/banner/banner 2.jpg" %}')">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide" style="background-image: url('{% static "images/banner/banner 3.jpg" %}')">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide" style="background-image: url('{% static "images/banner/banner 4.jpg" %}')">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide" style="background-image: url('{% static "images/banner/banner 5.JPG" %}')">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide" style="background-image: url('{% static "images/banner/banner 6.jpg" %}')">
+                    <div class="slide-overlay"></div>
+                </div>
+            </div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">Capturing Your Perfect Day</h1>
+                <div class="hero-buttons">
+                    <a href="#contact" class="cta-button">Book Your Session</a>
+                    <a href="{% url 'portfolio' %}" class="cta-button">View Portfolio</a>
+                </div>
+            </div>
+            
+            <!-- Slider Navigation -->
+            <div class="slider-nav">
+                <button class="slider-dot active" data-slide="0"></button>
+                <button class="slider-dot" data-slide="1"></button>
+                <button class="slider-dot" data-slide="2"></button>
+                <button class="slider-dot" data-slide="3"></button>
+                <button class="slider-dot" data-slide="4"></button>
+                <button class="slider-dot" data-slide="5"></button>
+            </div>
+            
+            <!-- Slider Arrows -->
+            <button class="slider-arrow slider-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow slider-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </section>
+
+        <!-- What We Do Section -->
+        <section id="what-we-do" class="what-we-do fade-in" style="background-image: url('{% static 'images/banner/baground/2.JPG' %}'); background-size: cover; background-position: center; background-attachment: fixed; position: relative;">
+            <div class="what-we-do-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.9); z-index: 1;"></div>
+            <div class="what-we-do-content" style="position: relative; z-index: 2;">
+                <div class="what-we-do-text">
+                    <div class="what-we-do-headline-wrapper">
+                        <div class="what-we-do-headline">Capturing Love, Light &amp; Legacy</div>
+                        <div class="what-we-do-underline"></div>
+                    </div>
+                    
+                    <div class="what-we-do-paragraphs">
+                        <p>We specialize in timeless wedding photography that tells your story through elegant, emotion-filled frames. From traditional ceremonies in Kerala to luxurious weddings in Dubai, our mission is to document love with authenticity and artistic finesse. Whether it's a classic pre-wedding shoot, a vibrant Mehendi, or a grand reception, we're with you at every step — offering candid photography, cinematic wedding films, destination wedding coverage, and tailored couple portraits. Every moment matters, and we make sure it lives on beautifully. Our approach is simple: let moments unfold naturally. We blend into the background when needed, and step in with direction when it counts — capturing real smiles, honest tears, and the unscripted magic of your day. Every photo is crafted with detail, light, and a story in mind.</p>
+                    </div>
+                    
+                    <div class="what-we-do-closing">
+                        <p class="closing-line">Your story is unique. Let's tell it with art, soul, and unforgettable imagery.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Portfolio Section -->
+        <section id="portfolio" class="wedding-portfolio-section fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Wedding Portfolio</h2>
+                    <p class="section-subtitle">Capturing love stories across the world</p>
+                </div>
+                
+                <div class="couple-story-slider">
+                    <div class="swiper couple-swiper">
+                        <div class="swiper-wrapper">
+                            {% for couple in slider_couples %}
+                            <div class="swiper-slide couple-story-slide">
+                                <a href="{% url 'couple_detail' slug=couple.slug %}" style="display: contents;">
+                                    <div class="couple-story-content">
+                                        <div class="couple-story-text">
+                                            <h3 class="couple-name">{{ couple.names }}</h3>
+                                            <p class="couple-date">{{ couple.wedding_date|date:"F Y" }}{% if couple.location %} • {{ couple.location }}{% endif %}</p>
+                                            {% if couple.quote %}<div class="couple-story"><p>{{ couple.quote }}</p></div>{% endif %}
+                                        </div>
+                                        <div class="couple-story-image">
+                                            <img src="{{ couple.cover_photo.url }}" alt="{{ couple.names }}" class="couple-img">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Add Navigation -->
+                        <div class="swiper-button-next couple-next"></div>
+                        <div class="swiper-button-prev couple-prev"></div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination couple-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">What Our Couples Say</h2>
+                    <p class="section-subtitle">Real stories from real couples</p>
+                </div>
+                <div class="testimonial-slider">
+                    <div class="swiper testimonial-swiper">
+                        <div class="swiper-wrapper">
+                            {% for testimonial in testimonials %}
+                            <div class="swiper-slide">
+                                <div class="testimonial-card centralised">
+                                    <div class="testimonial-photo-name centralised">
+                                        {% if testimonial.photo %}
+                                            <img src="{{ testimonial.get_photo_url }}" alt="{{ testimonial.name }}" class="client-photo">
+                                        {% else %}
+                                            <div class="client-photo placeholder-photo"><i class="fas fa-user"></i></div>
+                                        {% endif %}
+                                        <h3 class="client-name">{{ testimonial.name }}</h3>
+                                    </div>
+                                    <div class="testimonial-info centralised">
+                                        <p class="client-role">{{ testimonial.role }}</p>
+                                        {% if testimonial.wedding_date %}
+                                        <p class="wedding-date">{{ testimonial.wedding_date|date:"F j, Y" }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="testimonial-rating centralised">
+                                        {% for i in "12345" %}
+                                        <i class="fas fa-star {% if forloop.counter <= testimonial.rating %}filled{% endif %}"></i>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="testimonial-content centralised">
+                                        <p class="testimonial-text">"{{ testimonial.testimonial_text }}"</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% if testimonials|length < 6 %}
+                                {% for i in "123456" %}
+                                    {% if testimonials|length < forloop.counter %}
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-card centralised">
+                                            <div class="testimonial-photo-name centralised">
+                                                <div class="client-photo placeholder-photo"><i class="fas fa-user"></i></div>
+                                                <h3 class="client-name">Demo Name</h3>
+                                            </div>
+                                            <div class="testimonial-info centralised">
+                                                <p class="client-role">Bride & Groom</p>
+                                                <p class="wedding-date">2024</p>
+                                            </div>
+                                            <div class="testimonial-rating centralised">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                            </div>
+                                            <div class="testimonial-content centralised">
+                                                <p class="testimonial-text">"SD Photography made our day unforgettable! The photos are stunning and the team was wonderful to work with."</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                    </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination testimonial-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Follow Our Journey Section -->
+        {% if random_photos %}
+        <section class="random-photos-section fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Follow Our Journey</h2>
+                    <p class="section-subtitle">A glimpse into our Instagram feed and beautiful stories we've documented</p>
+                </div>
+                
+                <div class="random-photos-grid">
+                    {% for photo in random_photos %}
+                    <div class="random-photo-item">
+                        <img src="{{ photo.get_image_url }}" alt="Instagram Photo {{ forloop.counter }}" loading="lazy">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Instagram Connect Button -->
+                <div class="instagram-button-container">
+                    <a href="https://instagram.com/sd_photography" target="_blank" class="instagram-connect-btn">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow on Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section" style="background-image: url('{% static 'images/banner/baground/3.jpg' %}'); background-size: cover; background-position: center; background-attachment: fixed; position: relative;">
+            <div class="faq-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.95); z-index: 1;"></div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <div class="section-header">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Answers to common questions about our photography services</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3 class="faq-question" tabindex="0">How far in advance should we book you?</h3>
+                        <div class="faq-answer">We recommend booking as early as possible, especially for popular wedding dates. Most couples book 6-12 months in advance.</div>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question" tabindex="0">Do you travel for destination weddings?</h3>
+                        <div class="faq-answer">Absolutely! We love to travel and are available for weddings across India and internationally. Travel and accommodation costs may apply.</div>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question" tabindex="0">How many photos will we receive?</h3>
+                        <div class="faq-answer">You will receive a curated gallery of fully edited, high-resolution images. The number varies by package, but typically ranges from 400 to 800 photos for a full wedding day.</div>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question" tabindex="0">When will we get our photos?</h3>
+                        <div class="faq-answer">Your online gallery will be ready within 4-6 weeks after your wedding. We always aim to deliver as quickly as possible without compromising quality.</div>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question" tabindex="0">Can we request specific shots or poses?</h3>
+                        <div class="faq-answer">Of course! We encourage you to share your ideas and must-have shots. We'll also guide you for the best results while capturing candid moments throughout the day.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section fade-in" style="background-image: url('{% static 'images/banner/baground/4.JPG' %}'); background-size: cover; background-position: center; background-attachment: fixed; position: relative;">
+            <div class="contact-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); z-index: 1;"></div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <div class="section-header">
+                    <h2 class="section-title" style="color: white;">Get In Touch</h2>
+                    <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.9);">Let's create beautiful memories together</p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-form-container">
+                        <div class="contact-form">
+                            <h3>Send us a message</h3>
+                            <form class="contact-form-fields">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="name">Full Name *</label>
+                                        <input type="text" id="name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address *</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wedding-date">Wedding Date</label>
+                                        <input type="date" id="wedding-date" name="wedding_date">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="service-required">Service Required</label>
+                                        <select id="service-required" name="service_required">
+                                            <option value="">Select a service</option>
+                                            <option value="wedding-photography">Wedding Photography</option>
+                                            <option value="engagement-session">Engagement Session</option>
+                                            <option value="pre-wedding-shoot">Pre-Wedding Shoot</option>
+                                            <option value="portrait-session">Portrait Session</option>
+                                            <option value="destination-wedding">Destination Wedding</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wedding-venue">Wedding Venue</label>
+                                        <input type="text" id="wedding-venue" name="wedding_venue" placeholder="Enter venue name or location">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Message *</label>
+                                    <textarea id="message" name="message" rows="5" placeholder="Tell us about your special day and any specific requirements..." required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="contact-submit-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Button (FAB) for Home Page Only -->
+    <div class="floating-action-button" id="floatingActionButtonHome">
+        <button class="fab-main" id="fabMainHome" aria-label="Open contact options">
+            <i class="fa-regular fa-comment"></i>
+        </button>
+        <div class="fab-options" id="fabOptionsHome">
+            <a href="https://wa.me/919876543210" target="_blank" class="fab-option" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://instagram.com/sd_photography" target="_blank" class="fab-option" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:info@sdphotography.com" class="fab-option" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+            <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SD Photography</h3>
+                    <p class="footer-description">Capturing love stories with artistic vision and timeless elegance. Your perfect moments, beautifully preserved.</p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/sd_photography" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/sdphotography" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://youtube.com/sdphotography" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://pinterest.com/sdphotography" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li>Wedding Photography</li>
+                        <li>Engagement Sessions</li>
+                        <li>Pre-Wedding Shoots</li>
+                        <li>Portrait Sessions</li>
+                        <li>Destination Weddings</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Information</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@sdphotography.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 98765 43210</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kerala, India</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 SD Photography. All rights reserved.</p>
+                    <p>Designed with ❤️ for capturing beautiful moments</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/navbar.js' %}"></script>
+    <script src="{% static 'js/hero-slider.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/wedding-bells-effects.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Floating Action Button Functionality for Home Page Only
+        var fab = document.getElementById('floatingActionButtonHome');
+        var fabMain = document.getElementById('fabMainHome');
+        var fabOptions = document.getElementById('fabOptionsHome');
+        if (fab && fabMain && fabOptions) {
+          fabMain.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fab.classList.toggle('active');
+          });
+          fabOptions.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+          document.addEventListener('click', function() {
+            fab.classList.remove('active');
+          });
+        }
+
+        new Swiper('.testimonial-swiper', {
+          loop: true,
+          slidesPerView: 1,
+          spaceBetween: 24,
+          effect: 'slide',
+          speed: 800,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.testimonial-pagination',
+            clickable: true,
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 32,
+            }
+          }
+        });
+
+        // Wedding Portfolio Slider
+        new Swiper('.couple-swiper', {
+          loop: true,
+          slidesPerView: 4,
+          spaceBetween: 20,
+          effect: 'slide',
+          speed: 800,
+          autoplay: {
+            delay: 6000,
+            disableOnInteraction: false,
+          },
+          navigation: {
+            nextEl: '.couple-next',
+            prevEl: '.couple-prev',
+          },
+          pagination: {
+            el: '.couple-pagination',
+            clickable: true,
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 15,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            }
+          }
+        });
+
+        // FAQ Functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+          question.addEventListener('click', function() {
+            const faqItem = this.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+              item.classList.remove('active');
+            });
+            
+            // Toggle current FAQ item
+            if (!isActive) {
+              faqItem.classList.add('active');
+            }
+          });
+          
+          // Add keyboard support for accessibility
+          question.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              this.click();
+            }
+          });
+        });
+      });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,128 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Image Upload{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+    <h1>Upload Images</h1>
+    
+    <div class="upload-section">
+        <h2>Banner Images</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_image' %}">
+            {% csrf_token %}
+            <input type="hidden" name="image_type" value="banner">
+            <div class="form-group">
+                <label for="banner_title">Title:</label>
+                <input type="text" name="title" id="banner_title" placeholder="Banner image title">
+            </div>
+            <div class="form-group">
+                <label for="banner_alt">Alt Text:</label>
+                <input type="text" name="alt_text" id="banner_alt" placeholder="Alt text for accessibility">
+            </div>
+            <div class="form-group">
+                <label for="banner_image">Image:</label>
+                <input type="file" name="image" id="banner_image" accept="image/*" required>
+                <small>Recommended: 2560×1440px, under 2MB</small>
+            </div>
+            <button type="submit">Upload Banner Image</button>
+        </form>
+    </div>
+    
+    <div class="upload-section">
+        <h2>Portfolio Images</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_image' %}">
+            {% csrf_token %}
+            <input type="hidden" name="image_type" value="portfolio">
+            <div class="form-group">
+                <label for="portfolio_title">Title:</label>
+                <input type="text" name="title" id="portfolio_title" placeholder="Portfolio image title">
+            </div>
+            <div class="form-group">
+                <label for="portfolio_alt">Alt Text:</label>
+                <input type="text" name="alt_text" id="portfolio_alt" placeholder="Alt text for accessibility">
+            </div>
+            <div class="form-group">
+                <label for="portfolio_image">Image:</label>
+                <input type="file" name="image" id="portfolio_image" accept="image/*" required>
+                <small>Recommended: High quality, under 2MB</small>
+            </div>
+            <button type="submit">Upload Portfolio Image</button>
+        </form>
+    </div>
+    
+    <div class="upload-section">
+        <h2>Gallery Images</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_image' %}">
+            {% csrf_token %}
+            <input type="hidden" name="image_type" value="gallery">
+            <div class="form-group">
+                <label for="gallery_title">Title:</label>
+                <input type="text" name="title" id="gallery_title" placeholder="Gallery image title">
+            </div>
+            <div class="form-group">
+                <label for="gallery_alt">Alt Text:</label>
+                <input type="text" name="alt_text" id="gallery_alt" placeholder="Alt text for accessibility">
+            </div>
+            <div class="form-group">
+                <label for="gallery_image">Image:</label>
+                <input type="file" name="image" id="gallery_image" accept="image/*" required>
+                <small>Recommended: High quality, under 2MB</small>
+            </div>
+            <button type="submit">Upload Gallery Image</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.upload-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.upload-section {
+    background: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group small {
+    color: #666;
+    font-size: 12px;
+}
+
+button {
+    background: #007cba;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #005a87;
+}
+</style>
+{% endblock %} 
